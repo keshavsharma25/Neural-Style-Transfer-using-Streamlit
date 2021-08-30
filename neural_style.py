@@ -29,7 +29,7 @@ def check_paths(args):
         sys.exit(1)
 
 
-def train(load=False):
+def train():
     device = torch.device("cuda" if config.CUDA else "cpu")
 
     np.random.seed(config.SEED)
