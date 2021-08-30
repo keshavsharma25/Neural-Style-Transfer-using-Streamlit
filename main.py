@@ -4,7 +4,7 @@ import random
 import style
 
 
-st.beta_set_page_config(page_title='Neural Style Transfer', layout='centered', initial_sidebar_state='auto')
+st.set_page_config(page_title='Neural Style Transfer', layout='centered', initial_sidebar_state='auto')
 
 st.title("Pytorch Image Style Transfer")  # Title
 
