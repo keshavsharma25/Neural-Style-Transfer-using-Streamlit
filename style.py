@@ -29,7 +29,7 @@ def load_model(model_path):
 def stylize(style_model, content_image, output_image):
     content_image = utils.load_image(content_image)
     content_transform = transforms.Compose([
-        transforms.Resize(256),
+        transforms.Resize(512),
         transforms.ToTensor(),
         transforms.Lambda(lambda x: x.mul(255))
     ])
