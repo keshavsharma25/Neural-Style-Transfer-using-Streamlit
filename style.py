@@ -3,6 +3,7 @@ import streamlit as st
 import torch
 from torchvision import transforms
 import torch.onnx
+from torchvision.transforms.transforms import Resize
 import utils
 from transformer_net import TransformerNet
 
@@ -28,6 +29,7 @@ def load_model(model_path):
 def stylize(style_model, content_image, output_image):
     content_image = utils.load_image(content_image)
     content_transform = transforms.Compose([
+        transforms.Resize(256),
         transforms.ToTensor(),
         transforms.Lambda(lambda x: x.mul(255))
     ])
