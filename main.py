@@ -17,7 +17,7 @@ if img_file is not None:
     output_image = 'images/output-images/' + style_name + str(random.randint(0, 100)) + '.jpg'
 
     st.write("### Source Image : ")
-    st.image(input_image, width=400)
+    st.image(input_image, width=720)
 
     clicked = st.button("Stylize")
 
@@ -27,7 +27,7 @@ if img_file is not None:
 
         st.write("### Output Image : ")
         out_image = Image.open(output_image)
-        st.image(out_image, width=400)
+        st.image(out_image, width=720)
 
 
 # To hide footer
