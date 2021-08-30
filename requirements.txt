@@ -1,3 +1,4 @@
 streamlit
-pytorch
+torch
+torchvision
 numpy
