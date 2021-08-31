@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as F
 
 
-class AutoEncoder(torch.nn.Module):
+class EncoderDecoder(torch.nn.Module):
     def __init__(self):
-        super(AutoEncoder, self).__init__()
+        super(EncoderDecoder, self).__init__()
         # Initial convolution layers
         self.conv1 = ConvLayer(3, 32, kernel_size=9, stride=1)
         self.in1 = torch.nn.InstanceNorm2d(32, affine=True)

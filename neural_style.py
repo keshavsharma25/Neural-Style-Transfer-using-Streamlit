@@ -14,7 +14,7 @@ import torch.onnx
 from tqdm import tqdm
 
 import utils
-from AutoEncoder import AutoEncoder
+from EncoderDecoder import EncoderDecoder
 from vgg import Vgg16
 import config
 
@@ -35,7 +35,7 @@ def train():
     train_dataset = datasets.ImageFolder(config.DATASET_PATH, transform)
     train_loader = DataLoader(train_dataset, batch_size=config.BATCH_SIZE)
 
-    encoder = AutoEncoder().to(device)  # Transformer
+    encoder = EncoderDecoder().to(device)  # Transformer
     optimizer = Adam(encoder.parameters(), config.LR)
     mse_loss = torch.nn.MSELoss()
 
