@@ -13,20 +13,9 @@ import torch.onnx
 from tqdm import tqdm
 
 import utils
-from transformer_net import TransformerNet
+from transformer_net import AutoEncoder
 from vgg import Vgg16
 import config
-
-
-def check_paths(args):
-    try:
-        if not os.path.exists(args.save_model_dir):
-            os.makedirs(args.save_model_dir)
-        if args.checkpoint_model_dir is not None and not (os.path.exists(args.checkpoint_model_dir)):
-            os.makedirs(args.checkpoint_model_dir)
-    except OSError as e:
-        print(e)
-        sys.exit(1)
 
 
 def train():
@@ -35,6 +24,7 @@ def train():
     np.random.seed(config.SEED)
     torch.manual_seed(config.SEED)
 
+    # Transforms applied to Training Dataset
     transform = transforms.Compose([
         transforms.Resize(config.IMAGE_SIZE),
         transforms.CenterCrop(config.IMAGE_SIZE),
@@ -44,7 +34,7 @@ def train():
     train_dataset = datasets.ImageFolder(config.DATASET_PATH, transform)
     train_loader = DataLoader(train_dataset, batch_size=config.BATCH_SIZE)
 
-    transformer = TransformerNet().to(device)
+    transformer = AutoEncoder().to(device)  # Transformer
     optimizer = Adam(transformer.parameters(), config.LR)
     mse_loss = torch.nn.MSELoss()
 

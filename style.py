@@ -3,7 +3,6 @@ import streamlit as st
 import torch
 from torchvision import transforms
 import torch.onnx
-from torchvision.transforms.transforms import Resize
 import utils
 from transformer_net import TransformerNet
 
