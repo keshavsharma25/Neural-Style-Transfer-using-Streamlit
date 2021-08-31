@@ -3,6 +3,7 @@ import sys
 import time
 
 import gc
+from google.protobuf.message import EncodeError
 import numpy as np
 import torch
 from torch.optim import Adam
@@ -13,7 +14,7 @@ import torch.onnx
 from tqdm import tqdm
 
 import utils
-from transformer_net import AutoEncoder
+from AutoEncoder import AutoEncoder
 from vgg import Vgg16
 import config
 
@@ -34,8 +35,8 @@ def train():
     train_dataset = datasets.ImageFolder(config.DATASET_PATH, transform)
     train_loader = DataLoader(train_dataset, batch_size=config.BATCH_SIZE)
 
-    transformer = AutoEncoder().to(device)  # Transformer
-    optimizer = Adam(transformer.parameters(), config.LR)
+    encoder = AutoEncoder().to(device)  # Transformer
+    optimizer = Adam(encoder.parameters(), config.LR)
     mse_loss = torch.nn.MSELoss()
 
     vgg = Vgg16().to(device)
@@ -51,7 +52,7 @@ def train():
     gram_style = [utils.gram_matrix(y) for y in features_style]
 
     for e in range(config.EPOCHS):
-        transformer.train()
+        encoder.train()
         agg_content_loss = 0.
         agg_style_loss = 0.
         count = 0
@@ -61,7 +62,7 @@ def train():
             optimizer.zero_grad()
 
             x = x.to(device)
-            y = transformer(x)
+            y = encoder(x)
 
             y = utils.normalize_batch(y)
             x = utils.normalize_batch(x)
@@ -94,18 +95,18 @@ def train():
                 print(mesg)
 
             if config.CHECKPOINT_MODEL_DIR is not None and (batch_id + 1) % config.CHECKPOINT_INTERVAL == 0:
-                transformer.eval().cpu()
+                encoder.eval().cpu()
                 ckpt_model_filename = "ckpt_epoch_" + str(e) + "_batch_id_" + str(batch_id + 1) + ".pth"
                 ckpt_model_path = os.path.join(config.CHECKPOINT_MODEL_DIR, ckpt_model_filename)
-                torch.save(transformer.state_dict(), ckpt_model_path)
-                transformer.to(device).train()
+                torch.save(encoder.state_dict(), ckpt_model_path)
+                encoder.to(device).train()
 
     # save model
-    transformer.eval().cpu()
+    encoder.eval().cpu()
     save_model_filename = "epoch_" + str(config.EPOCHS) + "_" + str(time.ctime()).replace(' ', '_') + "_" + str(
         config.CONTENT_WEIGHT) + "_" + str(config.STYLE_WEIGHT) + ".model"
     save_model_path = os.path.join(config.SAVE_MODEL_DIR, save_model_filename)
-    torch.save(transformer.state_dict(), save_model_path)
+    torch.save(encoder.state_dict(), save_model_path)
 
     print("\nDone, trained model saved at", save_model_path)
 

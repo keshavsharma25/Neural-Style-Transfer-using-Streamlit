@@ -4,7 +4,7 @@ import torch
 from torchvision import transforms
 import torch.onnx
 import utils
-from transformer_net import TransformerNet
+from AutoEncoder import AutoEncoder
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -12,7 +12,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 @st.cache
 def load_model(model_path):
     with torch.no_grad():
-        style_model = TransformerNet()
+        style_model = AutoEncoder()
         state_dict = torch.load(model_path)
         # remove saved deprecated running_* keys in InstanceNorm from the checkpoint
         for k in list(state_dict.keys()):
