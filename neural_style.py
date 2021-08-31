@@ -3,14 +3,12 @@ import sys
 import time
 
 import gc
-from google.protobuf.message import EncodeError
 import numpy as np
 import torch
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision import transforms
-import torch.onnx
 from tqdm import tqdm
 
 import utils

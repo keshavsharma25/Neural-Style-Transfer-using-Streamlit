@@ -2,7 +2,6 @@ import re
 import streamlit as st
 import torch
 from torchvision import transforms
-import torch.onnx
 import utils
 from EncoderDecoder import EncoderDecoder
 
