@@ -13,7 +13,7 @@ and a style reference image (such as an artwork by a famous painter)—and blend
 together so the output image looks like the content image, but “painted” in the style of the
 style reference image. 
 
-This project was implemented in PyTorch (Python Framework) and deployed on Streamlit.
+This project was implemented in PyTorch (Python Framework) and deployed on Heroku using Streamlit.
 
 ### Contribution
 
