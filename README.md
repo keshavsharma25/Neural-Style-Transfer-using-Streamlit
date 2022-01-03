@@ -14,7 +14,3 @@ together so the output image looks like the content image, but “painted” in 
 style reference image. 
 
 This project is implemented in PyTorch (Python Framework) and deployed on Heroku using Streamlit.
-
-### Contribution
-
-Thanks to [fast_neural_style](https://github.com/pytorch/examples/tree/master/fast_neural_style), I was able to implement it a step further as my first project.
